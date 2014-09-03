@@ -259,7 +259,7 @@ enyo.kind({
 	},
 	
 	handleHelpSelect: function(inSender, inEvent) {
-		if((this._ui == "full") || (this._helpOn == true))
+		if((this._ui == "full") || (this._helpOn == true))
 			this.doSelect(inSender.name, this._help[inSender.name]);
 	},
 
