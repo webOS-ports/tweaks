@@ -185,18 +185,26 @@ enyo.kind({
 
 			if(newTotal == 0)
 				this.$.middleProgress.setContent("There are no tweaks available");
-			else if((newTotal - oldTotal) < 0)
-				this.$.middleProgress.setContent("There was " + (oldTotal - newTotal) + " tweak(s) removed");		
-			else if((newTotal - oldTotal) > 0)
+			else if((newTotal - oldTotal) = -1)
+				this.$.middleProgress.setContent("There was " + (oldTotal - newTotal) + " tweak removed");		
+			else if((newTotal - oldTotal) < -1)
+				this.$.middleProgress.setContent("There were " + (oldTotal - newTotal) + " tweaks removed");		
+			else if((newTotal - oldTotal) = 1)
+				this.$.middleProgress.setContent("There is " + (newTotal - oldTotal) + " new tweak available");
+			else if((newTotal - oldTotal) > 1)
 				this.$.middleProgress.setContent("There are " + (newTotal - oldTotal) + " new tweak(s) available");
 			else 
 				this.$.middleProgress.setContent("There are " + newTotal + " tweak(s) available");
 
 			if(this._ui == "compact") {
-				if((newTotal - oldTotal) < 0)
-					enyo.windows.addBannerMessage("There was " + (oldTotal - newTotal) + " tweak(s) removed...", "{}");		
-				else if((newTotal - oldTotal) > 0)
-					enyo.windows.addBannerMessage("There is " + (newTotal - oldTotal) + " new tweak(s) available...", "{}"); 
+				if((newTotal - oldTotal) = -1)
+					enyo.windows.addBannerMessage("There was " + (oldTotal - newTotal) + " tweak removed...", "{}");		
+				else if((newTotal - oldTotal) < -1)
+					enyo.windows.addBannerMessage("There were " + (oldTotal - newTotal) + " tweaks removed...", "{}");		
+				else if((newTotal - oldTotal) = 1)
+					enyo.windows.addBannerMessage("There is " + (newTotal - oldTotal) + " new tweak available...", "{}"); 
+				else if((newTotal - oldTotal) > 1)
+					enyo.windows.addBannerMessage("There are " + (newTotal - oldTotal) + " new tweaks available...", "{}"); 
 			}
 		
 			localStorage["data"] = enyo.json.stringify({total: newTotal});
