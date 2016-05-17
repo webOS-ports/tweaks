@@ -19,6 +19,12 @@ enyo.kind({
 					"<li>When you change the settings for a running application, you need to restart the application to see the change</li>" +
 					"</ul><br>"},
 
+				{kind: "Divider", caption: "3.0.3"},
+				{content: "<ul><li>Cleaned up version for LuneOS without Mojo</li></ul>"},
+
+     			{kind: "Divider", caption: "3.0.2"},
+				{content: "<ul><li>Initial version for LuneOS</li></ul>"},
+
 				{kind: "Divider", caption: "3.0.1"},
 				{content: "<ul><li>Put Mojo back, finalized Luna support.</li></ul>"},
 
