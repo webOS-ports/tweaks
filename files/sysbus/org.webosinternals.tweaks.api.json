@@ -1,0 +1,9 @@
+{
+    "all": [
+        "org.webosinternals.tweaks.prefs/list",
+        "org.webosinternals.tweaks.prefs/scan",
+        "org.webosinternals.tweaks.prefs/get",
+        "org.webosinternals.tweaks.prefs/set"
+    ]
+}
+
