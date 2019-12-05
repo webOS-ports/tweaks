@@ -1,0 +1,9 @@
+{
+    "all": [
+        "org.webosports.service.tweaks.prefs/list",
+        "org.webosports.service.tweaks.prefs/scan",
+        "org.webosports.service.tweaks.prefs/get",
+        "org.webosports.service.tweaks.prefs/set"
+    ]
+}
+

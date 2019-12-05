@@ -183,8 +183,8 @@ ScanCommandAssistant.prototype.run = function(future) {
 			return true;
 		}
 
-		scanDirectory("/usr/palm/services/org.webosinternals.tweaks.prefs/preferences");
-		scanDirectory("/media/cryptofs/apps/usr/palm/services/org.webosinternals.tweaks.prefs/preferences");
+		scanDirectory("/usr/palm/services/org.webosports.service.tweaks.prefs/preferences");
+		scanDirectory("/media/cryptofs/apps/usr/palm/services/org.webosports.service.tweaks.prefs/preferences");
 
 		future.nest(prefs.save(newConfig));
 

@@ -65,13 +65,13 @@ enyo.kind({
 			{kind: "ToolButton", icon: "images/help-toggle.png", toggling: true, style: "margin-right: 8px;", onclick: "handleHelpToggle"}
 		]},
 
-		{name: "srvGetFiles", kind: "PalmService", service: "palm://org.webosinternals.tweaks.prefs/", method: "list", 
+		{name: "srvGetFiles", kind: "PalmService", service: "palm://org.webosports.service.tweaks.prefs/", method: "list", 
 			onSuccess: "handleGetFiles"},
 
-		{name: "srvSaveTweaks", kind: "DbService", dbKind: "org.webosinternals.tweaks:1", method: "merge", 
+		{name: "srvSaveTweaks", kind: "DbService", dbKind: "org.webosports.tweaks:1", method: "merge", 
 			onSuccess: "handleTweaksSaved", onFailure: "handleServiceError"},
 
-		{name: "srvRestartLuna", kind: "PalmService", service: "palm://org.webosinternals.ipkgservice", method: "restartLuna"},
+		{name: "srvRestartLuna", kind: "PalmService", service: "palm://org.webosports.service.ipkg", method: "restartLuna"},
 
 		{name: "srvSetPref", kind: "PalmService", service: "palm://com.palm.systemservice/", method: "setPreferences"},
 /* Get Preferences stuff

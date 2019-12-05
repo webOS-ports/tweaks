@@ -1,10 +1,10 @@
 {
     "exeName":"js",
     "type": "privileged",
-    "allowedNames": ["org.webosinternals.tweaks.prefs"],
+    "allowedNames": ["org.webosports.service.tweaks.prefs"],
     "permissions": [
         {
-            "service":"org.webosinternals.tweaks.prefs",
+            "service":"org.webosports.service.tweaks.prefs",
             "inbound":["*"],
             "outbound":["*"]
         }

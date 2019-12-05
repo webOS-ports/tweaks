@@ -54,10 +54,10 @@ enyo.kind({
 			]}
 		]},
 
-		{name: "srvLoadTweaks", kind: "DbService", dbKind: "org.webosinternals.tweaks:1", method: "find", 
+		{name: "srvLoadTweaks", kind: "DbService", dbKind: "org.webosports.tweaks:1", method: "find", 
 			onSuccess: "handleLoadFinished", onFailure: "handleServiceError"}, 
 
-		{name: "srvScanTweaks", kind: "PalmService", service: "palm://org.webosinternals.tweaks.prefs/", method: "scan", 
+		{name: "srvScanTweaks", kind: "PalmService", service: "palm://org.webosports.service.tweaks.prefs/", method: "scan", 
 			onSuccess: "handleScanFinished", onFailure: "handleServiceError"}
 	],
 	

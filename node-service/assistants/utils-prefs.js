@@ -7,7 +7,7 @@ var prefs = (function() {
 
 	var DB = Foundations.Data.DB;
 
-	var DB_KIND = "org.webosinternals.tweaks:1";
+	var DB_KIND = "org.webosports.tweaks:1";
 	
 //	var subscriptions = {};
 	
