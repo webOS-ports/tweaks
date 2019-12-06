@@ -1,8 +1,8 @@
 [
   {
       "type": "db.kind",
-      "object": "org.webosinternals.tweaks:1",
-      "caller": "org.webosinternals.tweaks",
+      "object": "org.webosports.tweaks:1",
+      "caller": "org.webosports.app.tweaks",
       "operations": {
           "create": "allow",
           "read": "allow",
@@ -12,8 +12,8 @@
   },
   {
       "type": "db.kind",
-      "object": "org.webosinternals.tweaks:1",
-      "caller": "org.webosinternals.tweaks.prefs",
+      "object": "org.webosports.tweaks:1",
+      "caller": "org.webosports.service.tweaks.prefs",
       "operations": {
           "create": "allow",
           "read": "allow",

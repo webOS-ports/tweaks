@@ -1,5 +1,5 @@
 {
-  "id": "org.webosinternals.tweaks",
+  "id": "org.webosports.tweaks",
   "package_format_version": 2,
   "loc_name": "Tweaks",
   "version": "3.0.3",
@@ -7,6 +7,6 @@
   "miniicon": "icon.png",
   "vendor": "WebOS Internals",
   "vendorurl": "www.webos-internals.org",
-  "app": "org.webosinternals.tweaks",
-  "services": ["org.webosinternals.tweaks.prefs"]
+  "app": "org.webosports.app.tweaks",
+  "services": ["org.webosports.service.tweaks.prefs"]
 }
