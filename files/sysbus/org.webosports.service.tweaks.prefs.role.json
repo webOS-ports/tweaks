@@ -1,7 +1,7 @@
 {
-    "exeName":"js",
-    "type": "privileged",
+    "appId": "org.webosports.service.tweaks.prefs",
     "allowedNames": ["org.webosports.service.tweaks.prefs"],
+    "type": "privileged",
     "permissions": [
         {
             "service":"org.webosports.service.tweaks.prefs",
