@@ -1,6 +1,7 @@
 {
     "org.webosports.service.tweaks.prefs": [ 
-        "all"
+        "settings",
+        "applications.internal"
     ]
 }
 
