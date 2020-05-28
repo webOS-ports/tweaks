@@ -1,7 +1,8 @@
 {
     "org.webosports.service.tweaks.prefs": [ 
         "settings",
-        "applications.internal"
+        "applications.internal",
+        "activities.manage"
     ]
 }
 
