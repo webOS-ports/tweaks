@@ -11,5 +11,5 @@
 	"icon": "icon.png",
 	"noWindow": true,
 	"uiRevision": "2",
-	"requiredPermissions": ["settings", "applications.internal", "activities.manage"]
+	"requiredPermissions": ["settings", "applications.internal", "activities.manage", "services"]
 }
