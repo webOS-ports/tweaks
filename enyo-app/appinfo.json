@@ -10,5 +10,6 @@
 	"main": "index.html",
 	"icon": "icon.png",
 	"noWindow": true,
-	"uiRevision": "2"
+	"uiRevision": "2",
+	"requiredPermissions": ["settings", "applications.internal", "activities.manage", "services"]
 }
