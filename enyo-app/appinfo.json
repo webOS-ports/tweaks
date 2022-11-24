@@ -7,9 +7,10 @@
 	"vendor_email":	"support@webos-internals.org",
 	"vendor_url": "http://www.webos-internals.org/wiki/Application:Tweaks",
 	"type": "web",
+	"trustLevel": "trusted",
 	"main": "index.html",
 	"icon": "icon.png",
 	"noWindow": true,
 	"uiRevision": "2",
-	"requiredPermissions": ["settings", "applications.internal", "activities.manage", "services", "database.internal"]
+	"requiredPermissions": ["activity.operation", "database.operation", "systemsettings.management", "tweaks-service.operation"]
 }
