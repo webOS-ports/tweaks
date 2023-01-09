@@ -12,5 +12,5 @@
 	"icon": "icon.png",
 	"noWindow": true,
 	"uiRevision": "2",
-	"requiredPermissions": ["activity.operation", "database.operation", "systemsettings.management", "tweaks-service.operation"]
+	"requiredPermissions": [ "activity.operation", "database.operation", "ipkg-service.operation", "systemsettings.management", "tweaks-service.operation" ]
 }
