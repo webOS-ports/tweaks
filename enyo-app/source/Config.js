@@ -151,7 +151,8 @@ enyo.kind({
 
 						items.push({kind: "Item", layoutKind: "HFlexLayout", align: "center", pack: "center", components: [
 							{content: inGroups[group][i].label, flex: 1, className: "enyo-label"},
-							{name: inGroups[group][i].key, kind: "ListSelector", value: inGroups[group][i].value, onChange: "handleList", items: choices}]});
+							{name: inGroups[group][i].key, kind: "ListSelector", flex: 1, contentPack: "end",
+								value: inGroups[group][i].value, onChange: "handleList", items: choices}]});
 					}
 					else if(inGroups[group][i].type == "TextField") {
 						help.push({label: inGroups[group][i].label, help: inGroups[group][i].help});
