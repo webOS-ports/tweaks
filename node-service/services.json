@@ -21,6 +21,7 @@
 			{ 
 				"name": "get", 
 				"assistant": "GetCommandAssistant",
+				"subscribe": true,
 				"public": true
 			},
 			{ 
