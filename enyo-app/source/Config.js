@@ -68,8 +68,8 @@ enyo.kind({
 		{name: "srvGetFiles", kind: "PalmService", service: "palm://org.webosports.service.tweaks.prefs/", method: "list", 
 			onSuccess: "handleGetFiles"},
 
-		{name: "srvSaveTweaks", kind: "DbService", dbKind: "org.webosports.tweaks:1", method: "merge", 
-			onSuccess: "handleTweaksSaved", onFailure: "handleServiceError"},
+		{name: "srvSaveTweak", kind: "PalmService", service: "palm://org.webosports.service.tweaks.prefs/", method: "set", 
+			onFailure: "handleServiceError"},
 
 		{name: "srvRestartLuna", kind: "PalmService", service: "palm://org.webosports.service.ipkg", method: "restartLuna"},
 
@@ -199,8 +199,14 @@ enyo.kind({
 	   //Set the item's value to the one in inResponse here, not sure how...
 	},
 */
-	saveTweaksConfig: function() {
-		this.$.srvSaveTweaks.call({objects: [this.owner._config]});
+	// Through the service rather than into db8 directly, so what follows the
+	// tweak (the card shell, Settings) hears of the change.
+	saveTweak: function(inTweak) {
+		var params = {owner: inTweak.owner};
+
+		params[inTweak.key] = inTweak.value;
+
+		this.$.srvSaveTweak.call(params);
 	},
 
 	handleHelpToggle: function(inSender, inEvent){
@@ -217,10 +223,6 @@ enyo.kind({
 		}
 	},
 	
-	handleTweaksSaved: function(inSender, inResponse) {
-		this.owner._config._rev = inResponse.results[0].rev;
-	},
-
 	handleServiceError: function() {
 		this.$.dlgServiceError.openAtCenter();
 	},
@@ -316,7 +318,7 @@ enyo.kind({
 					if(this.owner._config[this._category][group][i].restart == "luna")
 						this.handleLunaNotify();
 					
-					this.saveTweaksConfig();
+					this.saveTweak(this.owner._config[this._category][group][i]);
 					
 					break;
 				}
@@ -342,7 +344,7 @@ enyo.kind({
 		
 			this.$[this._pickerItem.key].setContent(files);
 		
-			this.saveTweaksConfig();
+			this.saveTweak(this._pickerItem);
 		}
 	},
 
@@ -362,7 +364,7 @@ enyo.kind({
 					if(this.owner._config[this._category][group][i].restart == "luna")
 						this.handleLunaNotify();
 
-					this.saveTweaksConfig();
+					this.saveTweak(this.owner._config[this._category][group][i]);
 					
 					break;
 				}
@@ -413,7 +415,7 @@ enyo.kind({
 						if(this.owner._config[this._category][group][i].restart == "luna")
 							this.handleLunaNotify();
 
-						this.saveTweaksConfig();
+						this.saveTweak(this.owner._config[this._category][group][i]);
 					}
 										
 					break;
@@ -440,7 +442,7 @@ enyo.kind({
 					if(this.owner._config[this._category][group][i].restart == "luna")
 						this.handleLunaNotify();
 
-					this.saveTweaksConfig();
+					this.saveTweak(this.owner._config[this._category][group][i]);
 					
 					break;
 				}
