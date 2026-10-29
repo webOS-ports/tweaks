@@ -31,8 +31,6 @@ const shellPrefs = [
 	{group: 'UI', key: 'rippleSize', type: 'IntegerPicker', value: 5, min: 1, max: 0},
 	{group: 'UI', key: 'wallpaper', type: 'FilePicker', value: '', path: '/media/internal/wallpapers', select: true}
 ];
-// The shell's file is the only one in its directory: after its FilePicker tweak the old scan read
-// the rest of a directory from the wrong place (bug 1).
 const FILES = {[PHONE + '.json']: prefFile('phone', PHONE, [dialPad])};
 const APP_FILES = {[SHELL + '.json']: prefFile('luna', SHELL, shellPrefs)};
 
@@ -304,16 +302,16 @@ function sortedReaddir(fn) {
 	});
 }
 
-test('old service: after a FilePicker tweak, the rest of that directory is read from its path (bug 1)', () => sortedReaddir(async () => {
+test('after a FilePicker tweak, the rest of its directory is read from that directory (bug 1)', () => sortedReaddir(async () => {
 	const t = boot({files: {
 		'a-shell.json': prefFile('luna', SHELL, shellPrefs),
 		'b-phone.json': prefFile('phone', PHONE, [dialPad])
 	}});
 	try {
-		const r = await t.request('scan', {});
-		assert.strictEqual(r.returnValue, false);
-		assert.strictEqual(r.errorText, 'MojoService: no errorCode supplied ENOENT: no such file or directory, open ' +
-			'\'/media/internal/wallpapers/b-phone.json\'');
+		assert.deepStrictEqual(await t.request('scan', {}), {returnValue: true});
+		assert.deepStrictEqual(await t.request('get', {owner: PHONE, key: 'dialPadFeedback'}),
+			{returnValue: true, dialPadFeedback: 'noFeedback'});
+		assert.strictEqual(stored(t).luna.ui[1].path, '/media/internal/wallpapers');
 	} finally {
 		t.stop();
 	}

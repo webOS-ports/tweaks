@@ -103,13 +103,6 @@ function buildConfig(config, {dirs = PREF_DIRS, log = console} = {}) {
 		}
 	}
 
-	/*
-		path is the directory being read, and the old service's FilePicker
-		branch declared a `var path` of its own in the same function: so
-		after a FilePicker tweak the rest of that directory's files were
-		read from the tweak's path (/media/internal/downloads by default),
-		and a file not there failed the whole scan (README: bug 1).
-	*/
 	function scanDirectory(path) {
 		log.log('Scanning path ' + path);
 		let files;
@@ -157,9 +150,6 @@ function buildConfig(config, {dirs = PREF_DIRS, log = console} = {}) {
 						continue;
 					}
 					const key = prefs[j].key;
-					if (prefs[j].type === 'FilePicker') {
-						path = prefs[j].path ? prefs[j].path : '/media/internal/downloads';
-					}
 					const made = entry(owner, key, prefs[j], chosen(category, group, owner, key, prefs[j].value));
 					if (made) {
 						newConfig[category][group].push(made);

@@ -62,15 +62,16 @@ any other a file names, in lower case), in each a property per group
 The old service's bugs
 ----------------------
 
-The first version gives the same replies and makes the same db8 calls as
+The first version gave the same replies and made the same db8 calls as
 the old service, these bugs included; the commits after it mend them one
-at a time, and the tests and commits refer to them by number:
+at a time (each says so below), and the tests and commits refer to them
+by number:
 
 1. After a FilePicker tweak, the scan read the rest of that directory's
    files from the tweak's `path` (`/media/internal/downloads` by
    default): the FilePicker branch declared a `var path` of its own,
    which was the directory being read. A file not there failed the scan
-   with ENOENT; one there of the same name was read instead.
+   with ENOENT; one there of the same name was read instead. Mended.
 2. One broken entry failed every scan: an entry without a `category`, an
    entry or tweak that is `null`, a category or group that is not a
    string, or a `*.json` that cannot be read (a directory). Then every
