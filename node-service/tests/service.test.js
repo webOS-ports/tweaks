@@ -317,13 +317,22 @@ test('after a FilePicker tweak, the rest of its directory is read from that dire
 	}
 }));
 
-test('old service: one preference entry without a category fails every scan (bug 2)', async () => {
-	const t = boot({files: Object.assign({'patch.json': [{owner: 'x', prefs: [dialPad]}]}, FILES), appFiles: APP_FILES});
+test('a broken entry, tweak or file is left out, and the rest stored (bug 2)', async () => {
+	const t = boot({files: Object.assign({
+		'patch.json': [{owner: 'x', prefs: [dialPad]}, null, {category: 7, prefs: [dialPad]}, {category: '_kind', prefs: [dialPad]},
+			{category: 'System', owner: 'x', prefs: [null, 'text', {group: 3, key: 'k', type: 'ToggleButton', value: true},
+				{group: '__proto__', key: 'k', type: 'ToggleButton', value: true},
+				{group: 'constructor', key: 'k', type: 'ToggleButton', value: true}]}]
+	}, FILES), appFiles: APP_FILES});
+	fs.mkdirSync(path.join(t.dirs.sys, 'folder.json'));
 	try {
-		const r = await t.request('scan', {});
-		assert.strictEqual(r.errorCode, -9999);
-		assert.strictEqual(r.errorText, 'MojoService: no errorCode supplied Cannot read properties of undefined (reading \'toLowerCase\')');
-		assert.strictEqual((await t.request('get', {owner: PHONE, key: 'dialPadFeedback'})).returnValue, false);
+		assert.deepStrictEqual(await t.request('scan', {}), {returnValue: true});
+		assert.deepStrictEqual(await t.request('get', {owner: PHONE, key: 'dialPadFeedback'}),
+			{returnValue: true, dialPadFeedback: 'noFeedback'});
+		const s = stored(t);
+		assert.strictEqual(s._kind, KIND);
+		assert.deepStrictEqual(s.system.constructor.map(e => [e.owner, e.key]), [['x', 'k']]);
+		assert.deepStrictEqual(Object.keys(s.system), ['constructor']);
 	} finally {
 		t.stop();
 	}

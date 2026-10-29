@@ -75,7 +75,9 @@ by number:
 2. One broken entry failed every scan: an entry without a `category`, an
    entry or tweak that is `null`, a category or group that is not a
    string, or a `*.json` that cannot be read (a directory). Then every
-   `/get` or `/set` of a tweak not yet stored failed too.
+   `/get` or `/set` of a tweak not yet stored failed too. Mended: such an
+   entry, tweak or file is left out (and logged), and so is a category
+   starting with `_`, which would be one of the object's own properties.
 3. `list` of a path it cannot read answered `returnValue: true`, with the
    error object as `exception` and no `files`; the Tweaks app then read
    `files.length` of undefined.

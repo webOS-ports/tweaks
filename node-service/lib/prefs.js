@@ -66,10 +66,13 @@ function buildConfig(config, {dirs = PREF_DIRS, log = console} = {}) {
 
 	// The value the store holds for owner/key in that category and group, else value.
 	function chosen(category, group, owner, key, value) {
-		if (config[category] && config[category][group]) {
-			for (let k = 0; k < config[category][group].length; k++) {
-				if (config[category][group][k].owner == owner && config[category][group][k].key == key) { /* jshint ignore:line */ // eslint-disable-line eqeqeq
-					return config[category][group][k].value;
+		// Only the store's own lists of tweaks: a group named "constructor" is not Object's (bug 2).
+		const own = (o, k) => o && typeof o === 'object' && Object.prototype.hasOwnProperty.call(o, k);
+		const list = own(config, category) && own(config[category], group) ? config[category][group] : null;
+		if (Array.isArray(list)) {
+			for (let k = 0; k < list.length; k++) {
+				if (list[k] && list[k].owner == owner && list[k].key == key) { /* jshint ignore:line */ // eslint-disable-line eqeqeq
+					return list[k].value;
 				}
 			}
 		}
@@ -118,32 +121,43 @@ function buildConfig(config, {dirs = PREF_DIRS, log = console} = {}) {
 			const fileId = file.slice(0, file.length - 5);
 			const filePath = path + '/' + file;
 			log.log('Reading tweak ' + filePath);
-			const fileData = fs.readFileSync(filePath, 'utf8');
+			// A file that cannot be read is left out, as one that is not JSON is (bug 2).
 			let jsonData;
 			try {
-				jsonData = JSON.parse(fileData);
+				jsonData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 			} catch (error) {
+				log.error('Skipping tweak file ' + filePath + ': ' + error.message);
 				continue;
 			}
 			if (!(jsonData instanceof Array)) {
 				continue;
 			}
 			for (let i = 0; i < jsonData.length; i++) {
+				// An entry the store cannot hold is left out, not the scan (bug 2): one that is
+				// not an object, or whose category is not a name, or one of the object's own
+				// properties (_id, _kind, _rev, _sync).
+				if (!jsonData[i] || typeof jsonData[i] !== 'object' || typeof jsonData[i].category !== 'string' ||
+					jsonData[i].category.charAt(0) === '_') {
+					log.error('Skipping an entry of ' + filePath + ': no category it can be stored under');
+					continue;
+				}
 				const category = jsonData[i].category.toLowerCase();
 				const owner = jsonData[i].owner || fileId;
 				const prefs = jsonData[i].prefs;
 				if (!prefs || !prefs.length) {
 					continue;
 				}
-				if (!newConfig[category]) {
+				if (!Object.prototype.hasOwnProperty.call(newConfig, category)) {
 					newConfig[category] = {};
 				}
 				for (let j = 0; j < prefs.length; j++) {
-					if (!prefs[j].group) {
+					// A tweak that is not an object, or whose group is not a name, is left out (bug 2).
+					if (!prefs[j] || typeof prefs[j] !== 'object' || !prefs[j].group || typeof prefs[j].group !== 'string' ||
+						prefs[j].group === '__proto__') {
 						continue;
 					}
 					const group = prefs[j].group.toLowerCase();
-					if (newConfig[category][group] == undefined) { /* jshint ignore:line */ // eslint-disable-line eqeqeq
+					if (!Object.prototype.hasOwnProperty.call(newConfig[category], group)) {
 						newConfig[category][group] = [];
 					}
 					if (!prefs[j].key || prefs[j].value == undefined) { /* jshint ignore:line */ // eslint-disable-line eqeqeq
