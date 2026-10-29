@@ -266,12 +266,12 @@ test('list gives the files or the directories of a path', async () => {
 	}
 });
 
-test('old service: list answers returnValue true with the error object for a path it cannot read', async () => {
+test('list refuses a path it cannot read (bug 3)', async () => {
 	const t = boot({});
 	try {
 		const missing = path.join(t.dirs.root, 'missing');
-		assert.deepStrictEqual(await t.request('list', {path: missing}),
-			{returnValue: true, exception: {errno: -2, code: 'ENOENT', syscall: 'scandir', path: missing}});
+		assert.deepStrictEqual(await t.request('list', {path: missing}), {errorText: 'ENOENT: no such file or directory, ' +
+			'scandir \'' + missing + '\'', errorCode: -1, exception: '[object Object]', returnValue: false});
 	} finally {
 		t.stop();
 	}

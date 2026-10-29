@@ -17,7 +17,7 @@
 	scan builds the store from the preference files again, keeping the
 	     values chosen.
 	list {path?, filter?: "files" | "dirs"} -> {files: [{label, value}]}:
-	     the Tweaks app's file picker.
+	     the Tweaks app's file picker; a path it cannot read is refused.
 
 	A refusal is {errorCode: -1, message}: thrown, as the old service set it
 	as the future's exception (mojoservice turned a plain result into
@@ -96,7 +96,8 @@ function createCommands({prefs}) {
 		try {
 			files = fs.readdirSync(path);
 		} catch (error) {
-			return {returnValue: false, exception: error};
+			// A refusal (bug 3): the old reply said returnValue true, with no files.
+			throw refusal(error.message);
 		}
 		const items = [];
 		for (const file of files) {

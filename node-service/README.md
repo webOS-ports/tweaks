@@ -41,9 +41,9 @@ Methods
   for a tweak still in the same category and group.
 - `list {path?, filter?}`: the files (or with `filter: "dirs"` the
   directories) in `path` (`/media/internal/downloads`), for the Tweaks
-  app's file picker.
+  app's file picker. A path it cannot read is refused.
 
-A refusal (no `owner`, no `key`) is errorCode -1 with
+A refusal (no `owner`, no `key`, a path `list` cannot read) is errorCode -1 with
 `exception: "[object Object]"`, as the old service gave it; any other error
 is mojoservice's -9999 "MojoService: no errorCode supplied ...", or the
 db8 error as Foundations' PalmCall gave it.
@@ -80,7 +80,8 @@ by number:
    starting with `_`, which would be one of the object's own properties.
 3. `list` of a path it cannot read answered `returnValue: true`, with the
    error object as `exception` and no `files`; the Tweaks app then read
-   `files.length` of undefined.
+   `files.length` of undefined. Mended: refused, errorCode -1 with the
+   file system's message.
 4. `list` failed as a whole on one entry it cannot stat (a dangling
    symlink).
 
