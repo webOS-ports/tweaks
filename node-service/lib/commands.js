@@ -101,7 +101,13 @@ function createCommands({prefs}) {
 		}
 		const items = [];
 		for (const file of files) {
-			const stat = fs.statSync(path + '/' + file);
+			// An entry that cannot be stat'ed (a dangling symlink) is left out, not the list (bug 4).
+			let stat = null;
+			try {
+				stat = fs.statSync(path + '/' + file);
+			} catch (error) {
+				continue;
+			}
 			// == as the old service compared: a filter of ["files"] is "files".
 			if (stat && ((filter == 'files' && stat.isFile()) || (filter == 'dirs' && stat.isDirectory()))) { /* jshint ignore:line */ // eslint-disable-line eqeqeq
 				items.push({label: file, value: path + '/' + file});

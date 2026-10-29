@@ -83,7 +83,7 @@ by number:
    `files.length` of undefined. Mended: refused, errorCode -1 with the
    file system's message.
 4. `list` failed as a whole on one entry it cannot stat (a dangling
-   symlink).
+   symlink). Mended: that entry is left out.
 
 Still as they were, and why:
 

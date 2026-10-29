@@ -277,17 +277,15 @@ test('list refuses a path it cannot read (bug 3)', async () => {
 	}
 });
 
-test('old service: list fails on an entry it cannot stat', async () => {
+test('list leaves out an entry it cannot stat (bug 4)', async () => {
 	const t = boot({});
 	try {
 		const tree = path.join(t.dirs.root, 'tree');
 		fs.mkdirSync(tree, {recursive: true});
 		fs.writeFileSync(path.join(tree, 'a.png'), 'x');
 		fs.symlinkSync(path.join(tree, 'gone'), path.join(tree, 'dangling'));
-		const r = await t.request('list', {path: tree});
-		assert.strictEqual(r.returnValue, false);
-		assert.strictEqual(r.errorCode, -9999);
-		assert.match(r.errorText, /ENOENT: no such file or directory, stat/);
+		assert.deepStrictEqual(await t.request('list', {path: tree}),
+			{returnValue: true, files: [{label: 'a.png', value: tree + '/a.png'}]});
 	} finally {
 		t.stop();
 	}
