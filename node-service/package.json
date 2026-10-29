@@ -1,0 +1,10 @@
+{
+	"name": "org.webosports.service.tweaks.prefs",
+	"version": "1.0.0",
+	"description": "Tweaks: the store of the tweaks the Tweaks app, Settings and the shell read",
+	"main": "service.js",
+	"private": true,
+	"engines": { "node": ">=22" },
+	"scripts": { "test": "node --test tests/*.test.js" },
+	"license": "GPL-3.0-or-later"
+}
