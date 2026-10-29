@@ -1,5 +1,8 @@
 // Copyright (c) 2026 Herman van Hazendonk
-// SPDX-License-Identifier: MIT
+// Derived from the old service's assistants/utils-prefs.js, by the
+// authors of the Tweaks app and service (see MIT-NOTICE), licensed under the
+// MIT License; that notice and its permission notice are in MIT-NOTICE.
+// SPDX-License-Identifier: GPL-3.0-or-later
 
 'use strict';
 

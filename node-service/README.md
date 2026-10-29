@@ -120,3 +120,23 @@ This runs the unit tests (`node --test`) over an in-memory db8
 (`tests/fakedb.js`, written to what db8 did on the VM) and a stand-in bus
 (`tests/palmbus.js`), with preference directories of their own under
 `tests/.work`, then jshint (set `JSHINT`) and a parse of every module.
+
+Licence
+-------
+
+This rewrite is licensed under the GNU General Public License, version 3
+or (at your option) any later version: see COPYING. The rest of the
+tweaks repository (the Tweaks app, the bus configuration in files/, this
+directory's configuration/) keeps its licence, MIT as the recipe gives it.
+
+    Copyright (c) 2026 Herman van Hazendonk
+
+lib/prefs.js and lib/commands.js port the old service's assistants step
+by step, and say so in their headers; that code is MIT-licensed, and its
+notice is in MIT-NOTICE (the repository has no copyright line of its own:
+MIT-NOTICE names the authors from its git history). lib/mojo.js reproduces
+mojoservice's and Foundations' replies, and keeps their notice: Copyright
+2009-2012 Hewlett-Packard Development Company, L.P., licensed under the
+Apache License, Version 2.0, which allows it to be part of a GPL-3.0 work.
+lib/bus.js and lib/errors.js (from luneos-synergy-connectors), service.js
+and the tests have no old lineage.

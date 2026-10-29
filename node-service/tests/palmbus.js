@@ -1,5 +1,5 @@
 // Copyright (c) 2026 Herman van Hazendonk
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: GPL-3.0-or-later
 
 /*
 	A stand-in palmbus for running the service on the host (after the
